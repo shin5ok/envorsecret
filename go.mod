@@ -1,4 +1,4 @@
-module github.com/shin5ok/envorsecret
+module github.com/shin5ok/envorsecretm
 
 go 1.15
 
