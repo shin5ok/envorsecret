@@ -1,4 +1,4 @@
-package envorsecret
+package envorsecretm
 
 import (
 	"context"
