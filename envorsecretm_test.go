@@ -12,6 +12,8 @@ func TestEnvsecretm(t *testing.T) {
 	m := envorsecretm.Config{ProjectId}
 	if m.Get("PROJECT_ID") != ProjectId {
 		t.Logf("PROJECT_ID is NOT %s", ProjectId)
+	} else {
+		t.Log("PROJECT_ID is got from env correctlly")
 	}
 
 }
