@@ -13,7 +13,7 @@ func TestEnvsecretm(t *testing.T) {
 	if m.Get("PROJECT_ID") != ProjectId {
 		t.Logf("PROJECT_ID is NOT %s", ProjectId)
 	} else {
-		t.Log("PROJECT_ID is got from env correctlly")
+		t.Log("PROJECT_ID is got from env correctly")
 	}
 
 }
