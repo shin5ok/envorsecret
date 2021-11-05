@@ -15,7 +15,7 @@ type Config struct {
 }
 
 // Secret Manager
-func (c *Config) Get(name string) string {
+func (c *Config) Get(name, version string) string {
 	if value := os.Getenv(name); value != "" {
 		log.Printf("Getting value %s from Environment value\n", name)
 		return value
@@ -26,8 +26,11 @@ func (c *Config) Get(name string) string {
 	if err != nil {
 		log.Fatalf("failed to setup client: %v\n", err)
 	}
+	if version == "" {
+		version = "latest"
+	}
 	//var secret *secretmanager.Secret
-	pathname := fmt.Sprintf("projects/%s/secrets/%s/versions/latest", c.ProjectId, name)
+	pathname := fmt.Sprintf("projects/%s/secrets/%s/versions/%s", c.ProjectId, name, version)
 	log.Println("pathname:" + pathname)
 	req := &secretmanagerpb.AccessSecretVersionRequest{
 		Name: pathname,
