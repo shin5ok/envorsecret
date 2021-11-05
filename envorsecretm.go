@@ -14,20 +14,23 @@ type Config struct {
 	ProjectId string
 }
 
-// Secret Manager
-func (c *Config) Get(name, version string) string {
+// from env variables
+func (c *Config) Get(name string) string {
 	if value := os.Getenv(name); value != "" {
 		log.Printf("Getting value %s from Environment value\n", name)
 		return value
 	}
+	return c.GetSecret(c.ProjectId, "latest")
+}
+
+// from Secret Manager with specified version
+func (c *Config) GetSecret(name, version string) string {
+
 	log.Printf("Getting value %s from Secret Manager\n", name)
 	ctx := context.Background()
 	client, err := secretmanager.NewClient(ctx)
 	if err != nil {
 		log.Fatalf("failed to setup client: %v\n", err)
-	}
-	if version == "" {
-		version = "latest"
 	}
 	//var secret *secretmanager.Secret
 	pathname := fmt.Sprintf("projects/%s/secrets/%s/versions/%s", c.ProjectId, name, version)
